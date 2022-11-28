@@ -1,0 +1,30 @@
+/* Alternate Product CSS goes here */
+.alternate-products-container ul li {
+	list-style: none;
+	text-align: center;
+	margin-bottom: 5px;
+	padding: 0 0.75rem;
+}
+
+.alternate-products-container ul {
+	display: flex;
+	padding: 0;
+}
+
+.alternate-products-container h2 {
+	padding: 0;
+	margin: 1rem 0 1rem 0;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 1.2rem;
+	color: rgb(87,87,87);
+}
+
+.alternate-products-container ul li:hover {
+	box-shadow: 1px 1px 5px 0px black;
+}
+
+.alternate-products-container ul li:hover {
+	box-shadow: 1px 1px 5px 0px black;
+	transition: 0.2s;
+}

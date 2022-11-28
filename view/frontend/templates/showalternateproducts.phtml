@@ -1,0 +1,72 @@
+<?php
+/* OPEN - Get all the of current product's information */
+
+$accessBlock = $block->getLayout()->createBlock('Nailalliance\ShowAlternateProducts\Block\FetchProduct');
+$BASE_URL = $accessBlock->getBaseUrl();
+$currentProduct = $accessBlock->getCurrentProduct();
+
+/* OPEN - Gather related products' details if found */
+
+$associatedProducts = [];
+
+if(
+    !empty($currentProduct->getGel()) && 
+    $currentProduct->getGel() != $currentProduct->getSku()
+) {
+    $assocProduct = $accessBlock->loadBySku($currentProduct->getGel());
+    if (!empty($assocProduct)) {
+        $associatedProducts[] = [
+            'urlKey'    => "{$BASE_URL}{$assocProduct->getUrlKey()}.html",
+            'sku'       => $assocProduct->getSku(),
+            'imageUrl'  => $accessBlock->getImages($assocProduct)
+        ];
+    }
+}
+
+if(
+    !empty($currentProduct->getLacquer()) && 
+    $currentProduct->getLacquer() != $currentProduct->getSku()
+) {
+    $assocProduct = $accessBlock->loadBySku($currentProduct->getLacquer());
+    if (!empty($assocProduct)) {
+        $associatedProducts[] = [
+            'urlKey'    => "{$BASE_URL}{$assocProduct->getUrlKey()}.html",
+            'sku'       => $assocProduct->getSku(),
+            'imageUrl'  => $accessBlock->getImages($assocProduct)
+        ];
+    }
+}
+
+if(
+    !empty($currentProduct->getDip()) && 
+    $currentProduct->getDip() != $currentProduct->getSku()
+) {
+    $assocProduct = $accessBlock->loadBySku($currentProduct->getDip());
+    if (!empty($assocProduct)) {
+        $associatedProducts[] = [
+            'urlKey'    => "{$BASE_URL}{$assocProduct->getUrlKey()}.html",
+            'sku'       => $assocProduct->getSku(),
+            'imageUrl'  => $accessBlock->getImages($assocProduct)
+        ];
+    }
+}
+
+
+/* Display related products */
+
+if (count($associatedProducts) > 0) : ?>
+    <section class='alternate-products-container'>
+        <h2>Also Found In:</h2>
+        <ul>
+            <?php foreach ($associatedProducts as $product_) {?>
+                <li>
+                    <a href="<?=$product_['urlKey']?>">
+                        <img src="<?=$product_['imageUrl']['1x']?>" alt="" 
+                            srcset="<?=$product_['imageUrl']['2x']?> 2x">
+                    </a>
+                    <p><?=$product_['sku']?></p>
+                </li>
+            <?php } ?>
+        </ul>
+    </section>
+<?php endif;  ?>
