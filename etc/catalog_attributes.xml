@@ -5,5 +5,6 @@
         <attribute name="gel" />
         <attribute name="lacquer" />
         <attribute name="dip" />
+        <attribute name="combo" />
     </group>
 </config>

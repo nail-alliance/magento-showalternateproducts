@@ -51,6 +51,20 @@ if(
     }
 }
 
+if(
+    !empty($currentProduct->getCombo()) && 
+    $currentProduct->getCombo() != $currentProduct->getSku()
+) {
+    $assocProduct = $accessBlock->loadBySku($currentProduct->getCombo());
+    if (!empty($assocProduct)) {
+        $associatedProducts[] = [
+            'urlKey'    => "{$BASE_URL}{$assocProduct->getUrlKey()}.html",
+            'sku'       => $assocProduct->getSku(),
+            'imageUrl'  => $accessBlock->getImages($assocProduct)
+        ];
+    }
+}
+
 
 /* Display related products */
 
